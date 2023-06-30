@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../../model/event.dart';
+import '../../util.dart';
 
 class EventDetailsScreen extends StatelessWidget {
   final Event event;
@@ -108,8 +110,8 @@ class EventDetailsScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          event.datetimeLocal?.toString() ?? '',
-                          style: TextStyle(fontSize: 16),
+                         formatDateTime(event.datetimeLocal),
+                          style:const TextStyle(fontSize: 16),
                         ),
                         const SizedBox(height: 16),
                     const    Text(

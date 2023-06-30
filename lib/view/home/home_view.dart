@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
                       return EventCard(
                           title: allEvents.events![index].title!,
                           dateTime:
-                              allEvents.events![index].datetimeLocal.toString(),
+                              allEvents.events![index].datetimeLocal!,
                           venueName: allEvents.events![index].venue!.name!,
                           onTap: () {
                             Navigator.push(

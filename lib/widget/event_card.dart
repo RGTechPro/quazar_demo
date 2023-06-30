@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../util.dart';
+
 class EventCard extends StatelessWidget {
   final String title;
-  final String dateTime;
+  final DateTime dateTime;
   final String venueName;
   final VoidCallback onTap;
 
@@ -37,7 +39,7 @@ class EventCard extends StatelessWidget {
               ),
               const SizedBox(height: 8.0),
               Text(
-                dateTime,
+               formatDateTime(dateTime),
                 style:const  TextStyle(
                   color: Colors.grey,
                   fontSize: 14.0,
