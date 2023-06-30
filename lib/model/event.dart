@@ -124,9 +124,9 @@ class Event {
 
 class Stats {
   int? listingCount;
-  double? averagePrice;
-  double? lowestPrice;
-  double? highestPrice;
+  int? averagePrice;
+  int? lowestPrice;
+  int? highestPrice;
 
   Stats({
     this.listingCount,
@@ -138,9 +138,9 @@ class Stats {
   factory Stats.fromJson(Map<String, dynamic> json) {
     return Stats(
       listingCount: json['listing_count'],
-      averagePrice: json['average_price']?.toDouble(),
-      lowestPrice: json['lowest_price']?.toDouble(),
-      highestPrice: json['highest_price']?.toDouble(),
+      averagePrice: json['average_price'],
+      lowestPrice: json['lowest_price'],
+      highestPrice: json['highest_price'],
     );
   }
 }
