@@ -16,19 +16,17 @@ class HomeViewModel {
     try {
       return await ref.read(eventServiceProvider).getAllEvents(pageno: pageno);
     } on SocketException catch (_) {
-      //    showDialogFlash(title: noConnection, content: noConnectionMessage);
       rethrow;
     } on TimeoutException catch (e) {
-      // showDialogFlash(title: noConnection, content: timeout);
+
       rethrow;
     }
   }
 
   addNewEvents(EventData newEvents) {
-   
-    if (pageno == newEvents.meta!.page) { print('see htis');
-    print(newEvents.meta!.page);
+    if (pageno == newEvents.meta!.page) {
       allEvents.events!.addAll(newEvents.events!);
+      allEvents.events!.add(Event(title: 'loading'));
     }
   }
 }

@@ -11,7 +11,7 @@ abstract class EventService {
 }
 
 class EventServiceImpl extends EventService {
-  // final _client = Client();
+
   String clientId = 'MzQ2MDU5NjV8MTY4ODA2NjI1OC41NzUzMTg4';
   String clientSecret =
       '3374ffe9de3646cca8606540025e319a35bfd52d903dd55f1c39d1b318521322';
@@ -24,7 +24,6 @@ class EventServiceImpl extends EventService {
         "$baseUrl?client_id=$clientId&client_secret=$clientSecret&page=$pageno&per_page=15";
     Response response;
     response = await dio.get(url);
-  //  print(response.data.toString());
     final data = response.data;
     return EventData.fromJson(data);
   }
