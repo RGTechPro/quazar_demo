@@ -39,14 +39,14 @@ class EventDetailsScreen extends StatelessWidget {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Container(
                           height: 200,
-                          child: Center(
+                          child: const Center(
                             child: CircularProgressIndicator(),
                           ),
                         );
                       } else if (snapshot.hasError) {
                         return Container(
                           height: 200,
-                          child: Center(
+                          child: const Center(
                             child: Text('Error loading images.'),
                           ),
                         );
@@ -73,7 +73,7 @@ class EventDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Text(
+                   const     Text(
                           'Performers:',
                           style: TextStyle(
                             fontSize: 18,
@@ -99,7 +99,7 @@ class EventDetailsScreen extends StatelessWidget {
                               .toList(),
                         ),
                         const SizedBox(height: 16),
-                        Text(
+                    const    Text(
                           'Date & Time:',
                           style: TextStyle(
                             fontSize: 18,
@@ -112,7 +112,7 @@ class EventDetailsScreen extends StatelessWidget {
                           style: TextStyle(fontSize: 16),
                         ),
                         const SizedBox(height: 16),
-                        Text(
+                    const    Text(
                           'Venue:',
                           style: TextStyle(
                             fontSize: 18,

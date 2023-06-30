@@ -24,7 +24,7 @@ class EventServiceImpl extends EventService {
         "$baseUrl?client_id=$clientId&client_secret=$clientSecret&page=$pageno&per_page=15";
     Response response;
     response = await dio.get(url);
-    print(response.data.toString());
+  //  print(response.data.toString());
     final data = response.data;
     return EventData.fromJson(data);
   }

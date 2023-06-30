@@ -10,8 +10,9 @@ final homeViewModelProvider = StateProvider((ref) => HomeViewModel());
 
 class HomeViewModel {
   int pageno = 1;
-  Future<EventData> getAllEvents(
-      {required WidgetRef ref}) async {
+  bool isFetching = false;
+  EventData allEvents = EventData(events: []);
+  Future<EventData> getAllEvents({required WidgetRef ref}) async {
     try {
       return await ref.read(eventServiceProvider).getAllEvents(pageno: pageno);
     } on SocketException catch (_) {
@@ -20,6 +21,14 @@ class HomeViewModel {
     } on TimeoutException catch (e) {
       // showDialogFlash(title: noConnection, content: timeout);
       rethrow;
+    }
+  }
+
+  addNewEvents(EventData newEvents) {
+   
+    if (pageno == newEvents.meta!.page) { print('see htis');
+    print(newEvents.meta!.page);
+      allEvents.events!.addAll(newEvents.events!);
     }
   }
 }
