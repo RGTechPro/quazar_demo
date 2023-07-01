@@ -21,9 +21,9 @@ class HomePage extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 245, 245, 243),
         body: Column(
           children: [
-            Text(
+           const Text(
               'EVENTS 🎉',
-              style: const TextStyle(
+              style:  TextStyle(
                   color: Color(0xff343D8D),
                   fontSize: 25.0,
                   fontFamily: 'Poppins',
@@ -65,6 +65,7 @@ class HomePage extends StatelessWidget {
                             return const Center(
                                 child: CircularProgressIndicator());
                           } else {
+                         
                             return EventCard(
                                 title: allEvents.events![index].title!,
                                 dateTime:

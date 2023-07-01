@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../model/event.dart';
 import '../../util.dart';
+import 'dart:html' as html;
 
 class EventDetailsScreen extends StatelessWidget {
   final Event event;
@@ -10,36 +11,41 @@ class EventDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Event Details'),
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return Container(
+      decoration: const BoxDecoration(
+        gradient:  LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [
+            Color(0xFFFFFFFF),
+            Color.fromARGB(255, 199, 213, 236),
+          ],
+        ),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-            //  height: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    const Color(0xFFFFFFFF),
-                    Color.fromARGB(255, 204, 214, 231),
-                  ],
-                ),
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Colors.grey.withOpacity(.01)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    offset: Offset(0, .5),
-                    spreadRadius: .1,
-                    blurRadius: 3,
-                  ),
-                ],
-              ),
-              child: Column(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Color(0xff343D8D), //change your color here
+          ),
+          backgroundColor: Colors.white,
+          title: const Text(
+            'Event Details',
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 24.0,
+              color: Color(0xff343D8D),
+              fontFamily: 'Poppins',
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   FutureBuilder(
@@ -53,7 +59,8 @@ class EventDetailsScreen extends StatelessWidget {
                           )
                           .toList(),
                     ),
-                    builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+                    builder:
+                        (BuildContext context, AsyncSnapshot<void> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Container(
                           height: 200,
@@ -71,7 +78,7 @@ class EventDetailsScreen extends StatelessWidget {
                       } else {
                         return Image.network(
                           event.performers![0].images!.huge ?? '',
-                          height: 200,
+                          height: screenHeight * 0.3, // Adjust the height as needed
                           fit: BoxFit.cover,
                         );
                       }
@@ -86,16 +93,20 @@ class EventDetailsScreen extends StatelessWidget {
                         Text(
                           event.title ?? '',
                           style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 28.0,
+                            color: Color(0xff343D8D),
+                            fontFamily: 'Poppins',
                           ),
                         ),
                         const SizedBox(height: 16),
                         const Text(
                           'Performers:',
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 24.0,
+                            color: Color(0xff343D8D),
+                            fontFamily: 'Poppins',
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -122,9 +133,11 @@ class EventDetailsScreen extends StatelessWidget {
                         const SizedBox(height: 16),
                         Container(
                           decoration: BoxDecoration(
-                            color: Color(0xffECEEF9),
+                            color: const Color.fromARGB(255, 194, 202, 245),
                             borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(color: Colors.grey.withOpacity(.01)),
+                            border: Border.all(
+                              color: Colors.grey.withOpacity(.01),
+                            ),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
@@ -135,7 +148,7 @@ class EventDetailsScreen extends StatelessWidget {
                                   "${formatTime(event.datetimeLocal)} \u23F0",
                                   style: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 14.0,
+                                    fontSize: 18.0,
                                     fontFamily: 'Poppins',
                                   ),
                                 ),
@@ -144,7 +157,7 @@ class EventDetailsScreen extends StatelessWidget {
                                   formatDate(event.datetimeLocal),
                                   style: const TextStyle(
                                     color: Colors.black,
-                                    fontSize: 14.0,
+                                    fontSize: 18.0,
                                     fontFamily: 'Poppins',
                                   ),
                                 ),
@@ -153,129 +166,107 @@ class EventDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Text(
-                              "🌍 Venue: ",
-                              style: const TextStyle(
-                                color: Color(0xff343D8D),
-                                fontSize: 16.0,
-                                fontFamily: 'Poppins',
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                "🌍 Venue: ",
+                                style: TextStyle(
+                                  color: Color(0xff343D8D),
+                                  fontSize: 21.0,
+                                  fontFamily: 'Poppins',
+                                ),
                               ),
+                              Expanded(
+                                child: Text(
+                                  event.venue!.name!,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xff343D8D),
+                                    fontSize: 21.0,
+                                    fontFamily: 'Poppins',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Row(
+                            children: [
+                              const Text(
+                                "🎯 Type: ",
+                                style: TextStyle(
+                                  color: Color(0xff343D8D),
+                                  fontSize: 21.0,
+                                  fontFamily: 'Poppins',
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  event.type!.capitalize() ?? '',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    color: Color(0xff343D8D),
+                                    fontSize: 20.0,
+                                    fontFamily: 'Poppins',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              html.window.open(event.url!, "_blank");
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                const Color.fromARGB(255, 194, 202, 245),
+                              ),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                              elevation: MaterialStateProperty.all<double>(0.0),
                             ),
-                            Expanded(
+                            child:const Padding(
+                              padding:  EdgeInsets.all(12.0),
                               child: Text(
-                                event.venue!.name!,
-                                style: const TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 14.0,
+                                'Buy Ticket',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 21.0,
+                                  color: Color(0xff343D8D),
                                   fontFamily: 'Poppins',
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'Event Statistics:',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
                           ),
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Listing Count:',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              event.stats!.listingCount.toString(),
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Average Price:',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '\$${event.stats!.averagePrice.toString()}',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Lowest Price:',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '\$${event.stats!.lowestPrice.toString()}',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Highest Price:',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              '\$${event.stats!.highestPrice.toString()}',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        ElevatedButton(
-                          onPressed: () {
-                            // Add the logic for opening the event's URL
-                            // You can use the url_launcher package to open the URL in a browser
-                          },
-                          child: const Text('Buy Tickets'),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
+  }
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1).toLowerCase()}";
   }
 }

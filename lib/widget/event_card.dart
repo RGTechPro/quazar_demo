@@ -23,9 +23,9 @@ class EventCard extends StatelessWidget {
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
+            gradient:const LinearGradient(
               colors: [
-                const Color(0xFFFFFFFF),
+                 Color(0xFFFFFFFF),
                 Color.fromARGB(255, 204, 214, 231),
               ],
             ),
@@ -80,7 +80,7 @@ class EventCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(
+               const     SizedBox(
                       width: 15,
                     ),
                     Expanded(
@@ -99,10 +99,11 @@ class EventCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4.0),
                           Row(
+                            
                             children: [
-                              Text(
+                         const     Text(
                                 "🌍 Venue: ",
-                                style: const TextStyle(
+                                style:  TextStyle(
                                   color: Color(0xff343D8D),
                                   fontSize: 16.0,
                                   fontFamily: 'Poppins',
@@ -113,7 +114,7 @@ class EventCard extends StatelessWidget {
                                   venueName,
                                   style: const TextStyle(
                                     color: Colors.black54,
-                                    fontSize: 14.0,
+                                    fontSize: 16.0,
                                     fontFamily: 'Poppins',
                                   ),
                                 ),
@@ -126,7 +127,7 @@ class EventCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(
+           const   Icon(
                 Icons.arrow_right_rounded,
                 color: Color(0xff343D8D),
                 size: 35,
