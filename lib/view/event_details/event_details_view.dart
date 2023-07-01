@@ -220,34 +220,31 @@ class EventDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              html.window.open(event.url!, "_blank");
-                            },
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                const Color.fromARGB(255, 194, 202, 245),
-                              ),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                              ),
-                              elevation: MaterialStateProperty.all<double>(0.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            html.window.open(event.url!, "_blank");
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              const Color.fromARGB(255, 194, 202, 245),
                             ),
-                            child:const Padding(
-                              padding:  EdgeInsets.all(12.0),
-                              child: Text(
-                                'Buy Ticket',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 21.0,
-                                  color: Color(0xff343D8D),
-                                  fontFamily: 'Poppins',
-                                ),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                            ),
+                            elevation: MaterialStateProperty.all<double>(0.0),
+                          ),
+                          child:const Padding(
+                            padding:  EdgeInsets.all(12.0),
+                            child: Text(
+                              'Buy Ticket',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 21.0,
+                                color: Color(0xff343D8D),
+                                fontFamily: 'Poppins',
                               ),
                             ),
                           ),

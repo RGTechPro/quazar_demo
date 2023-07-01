@@ -35,7 +35,7 @@ class EventCard extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
-                offset: Offset(0, .5),
+                offset:const Offset(0, .5),
                 spreadRadius: .1,
                 blurRadius: 3,
               ),
@@ -50,7 +50,7 @@ class EventCard extends StatelessWidget {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Color(0xffECEEF9),
+                        color:const Color(0xffECEEF9),
                         borderRadius: BorderRadius.circular(8.0),
                         border: Border.all(color: Colors.grey.withOpacity(.01)),
                       ),
