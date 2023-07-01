@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
       var newEvents = ref.watch(homeViewFutureProvider(ref));
 
       return Scaffold(
-        backgroundColor: Color.fromARGB(255, 245, 245, 243),
+        backgroundColor:const Color.fromARGB(255, 245, 245, 243),
         body: Column(
           children: [
            const Text(
