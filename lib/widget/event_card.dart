@@ -166,11 +166,11 @@ class EventCard extends StatelessWidget {
                 ),
                 const SizedBox(
                     width:
-                        8.0), // Add some spacing between the photo and the other content
+                        8.0), 
                 Container(
                   width: 1.0,
                   color: Colors.grey
-                      .withOpacity(0.5), // Add a small vertical thin line color
+                      .withOpacity(0.5), 
                   margin: const EdgeInsets.symmetric(horizontal: 8.0),
                 ),
                 Expanded(
@@ -214,7 +214,7 @@ class EventCard extends StatelessWidget {
                           ),
                           const SizedBox(
                               width:
-                                  14.0), // Add spacing between the date-time column and the title
+                                  14.0),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
