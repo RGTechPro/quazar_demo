@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:html' as html;
 
 import '../../model/event.dart';
 import '../../util.dart';
-import 'dart:html' as html;
 
 class EventDetailsScreen extends StatelessWidget {
   final Event event;
@@ -15,7 +15,7 @@ class EventDetailsScreen extends StatelessWidget {
 
     return Container(
       decoration: const BoxDecoration(
-        gradient:  LinearGradient(
+        gradient: LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
           colors: [
@@ -48,45 +48,21 @@ class EventDetailsScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  FutureBuilder(
-                    future: Future.wait(
-                      event.performers!
-                          .map(
-                            (performer) => precacheImage(
-                              NetworkImage(performer.image ?? ''),
-                              context,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                    builder:
-                        (BuildContext context, AsyncSnapshot<void> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Container(
-                          height: 200,
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Container(
-                          height: 200,
-                          child: const Center(
-                            child: Text('Error loading images.'),
-                          ),
-                        );
-                      } else {
-                        return Image.network(
-                          event.performers![0].images!.huge ?? '',
-                          height: screenHeight * 0.3, // Adjust the height as needed
-                          fit: BoxFit.cover,
-                        );
-                      }
-                    },
-                  ),
+                 Padding(
+                   padding: const EdgeInsets.only(left: 20,right: 20,top: 20),
+                   child: ClipRRect(
+                   borderRadius: BorderRadius.circular(8.0),
+                   child: Image.network(
+                     event.performers![0].images!.huge ?? '',
+                     height: screenHeight * 0.3, // Adjust the height as needed
+                     fit: BoxFit.cover,
+                   ),
+                 ),
+                 ),
+
                   const SizedBox(height: 16),
                   Padding(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -100,124 +76,147 @@ class EventDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const Text(
-                          'Performers:',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 24.0,
-                            color: Color(0xff343D8D),
-                            fontFamily: 'Poppins',
-                          ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          "🎯 Type: ",
+                                          style: TextStyle(
+                                            color: Color(0xff343D8D),
+                                            fontSize: 21.0,
+                                            fontFamily: 'Poppins',
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            event.type!.capitalize() ?? '',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff343D8D),
+                                              fontSize: 20.0,
+                                              fontFamily: 'Poppins',
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          "🌍 Venue: ",
+                                          style: TextStyle(
+                                            color: Color(0xff343D8D),
+                                            fontSize: 21.0,
+                                            fontFamily: 'Poppins',
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Text(
+                                            "${event.venue!.name!}, ${event.venue!.city!}, ${event.venue!.country!}",
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Color(0xff343D8D),
+                                              fontSize: 21.0,
+                                              fontFamily: 'Poppins',
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 194, 202, 245),
+                                borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                  color: Colors.grey.withOpacity(.01),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "${formatTime(event.datetimeLocal)} \u23F0",
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18.0,
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4.0),
+                                    Text(
+                                      formatDate(event.datetimeLocal),
+                                      style: const TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 18.0,
+                                        fontFamily: 'Poppins',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(height: 8),
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
+                   const      Padding(
+                           padding:  EdgeInsets.only(top:15),
+                           child: Text(
+                                'Performers',
+                                style:  TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 21.0,
+                                  color: Color(0xff343D8D),
+                                  fontFamily: 'Poppins',
+                                ),
+                              ),
+                         ),
+                        const SizedBox(height: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: event.performers!
                               .map(
-                                (performer) => Tooltip(
-                                  message: performer.name ?? '',
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(4),
-                                    child: CircleAvatar(
-                                      backgroundImage: NetworkImage(
-                                        performer.image ?? '',
+                                (performer) => Padding(
+                                  padding: const EdgeInsets.all(4),
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                          performer.image ?? '',
+                                        ),
+                                        radius: 24,
                                       ),
-                                      radius: 24,
-                                    ),
+                                      const SizedBox(width: 8),
+                                      Tooltip(
+                                        message: performer.name ?? '',
+                                        child: Text(
+                                          performer.name ?? '',
+                                          style: const TextStyle(
+                                            // fontWeight: FontWeight.w500,
+                                            fontSize: 14.0,
+                                            color: Color(0xff343D8D),
+                                            fontFamily: 'Poppins',
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               )
                               .toList(),
-                        ),
-                        const SizedBox(height: 16),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 194, 202, 245),
-                            borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(
-                              color: Colors.grey.withOpacity(.01),
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "${formatTime(event.datetimeLocal)} \u23F0",
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.0,
-                                    fontFamily: 'Poppins',
-                                  ),
-                                ),
-                                const SizedBox(height: 4.0),
-                                Text(
-                                  formatDate(event.datetimeLocal),
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18.0,
-                                    fontFamily: 'Poppins',
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            children: [
-                              const Text(
-                                "🌍 Venue: ",
-                                style: TextStyle(
-                                  color: Color(0xff343D8D),
-                                  fontSize: 21.0,
-                                  fontFamily: 'Poppins',
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  event.venue!.name!,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff343D8D),
-                                    fontSize: 21.0,
-                                    fontFamily: 'Poppins',
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            children: [
-                              const Text(
-                                "🎯 Type: ",
-                                style: TextStyle(
-                                  color: Color(0xff343D8D),
-                                  fontSize: 21.0,
-                                  fontFamily: 'Poppins',
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  event.type!.capitalize() ?? '',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    color: Color(0xff343D8D),
-                                    fontSize: 20.0,
-                                    fontFamily: 'Poppins',
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton(
@@ -236,8 +235,8 @@ class EventDetailsScreen extends StatelessWidget {
                             ),
                             elevation: MaterialStateProperty.all<double>(0.0),
                           ),
-                          child:const Padding(
-                            padding:  EdgeInsets.all(12.0),
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
                             child: Text(
                               'Buy Ticket',
                               style: TextStyle(

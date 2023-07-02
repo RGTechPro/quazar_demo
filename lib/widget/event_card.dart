@@ -9,6 +9,8 @@ class EventCard extends StatelessWidget {
   final String venueName;
   final List<Performer> performers;
   final VoidCallback onTap;
+  final String city;
+  final String country;
 
   const EventCard({
     required this.title,
@@ -16,6 +18,8 @@ class EventCard extends StatelessWidget {
     required this.venueName,
     required this.performers,
     required this.onTap,
+    required this.city,
+    required this.country
   });
 
   @override
@@ -48,64 +52,72 @@ class EventCard extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '🌍 Venue: $venueName',
-                    style: const TextStyle(
-                      color: Colors.black54,
-                      fontSize: 16.0,
-                      fontFamily: 'Poppins',
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '🌍 Venue: $venueName, $city, $country',
+                      style: const TextStyle(
+                        color: Colors.black54,
+                        fontSize: 16.0,
+                        fontFamily: 'Poppins',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  Text(
-                    'Performers',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.0,
-                      color: Color(0xff343D8D),
-                      fontFamily: 'Poppins',
+                    const SizedBox(height: 16.0),
+                    Text(
+                      'Performers',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.0,
+                        color: Color(0xff343D8D),
+                        fontFamily: 'Poppins',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  Row(
-                    children: performers
-                        .map(
-                          (performer) => _buildPerformerWidget(performer),
-                        )
-                        .toList(),
-                  ),
-                ],
+                    const SizedBox(height: 8.0),
+                    Row(
+                      children: performers
+                          .map(
+                            (performer) => _buildPerformerWidget(performer),
+                          )
+                          .toList(),
+                    ),
+                  ],
+                ),
               ),
-               ElevatedButton(
-                        onPressed: onTap,
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color.fromARGB(255, 194, 202, 245),
-                          ),
-                          shape: MaterialStateProperty.all<
-                              RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                          ),
-                          elevation: MaterialStateProperty.all<double>(0.0),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: onTap,
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color.fromARGB(255, 194, 202, 245),
                         ),
-                        child:const Padding(
-                          padding:  EdgeInsets.all(12.0),
-                          child: Text(
-                            'More Details',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 21.0,
-                              color: Color(0xff343D8D),
-                              fontFamily: 'Poppins',
-                            ),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                        ),
+                        elevation: MaterialStateProperty.all<double>(0.0),
+                      ),
+                      child: const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Text(
+                          'More Details',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 21.0,
+                            color: Color(0xff343D8D),
+                            fontFamily: 'Poppins',
                           ),
                         ),
                       ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -247,7 +259,7 @@ class EventCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Icon(
+           const     Icon(
                   Icons.arrow_drop_down_rounded,
                   color: Color(0xff343D8D),
                   size: 35,
