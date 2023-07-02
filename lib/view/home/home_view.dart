@@ -72,6 +72,7 @@ class HomePage extends StatelessWidget {
                                     allEvents.events![index].datetimeLocal!,
                                 venueName:
                                     allEvents.events![index].venue!.name!,
+                                    performers: allEvents.events![index].performers!,
                                 onTap: () {
                                   Navigator.push(
                                       context,
